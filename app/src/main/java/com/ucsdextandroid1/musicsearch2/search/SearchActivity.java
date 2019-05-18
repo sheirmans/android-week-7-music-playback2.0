@@ -59,13 +59,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        searchAdapter.setOnItemClickListener(new OnItemClickListener<SongItem>() {
-            @Override
-            public void onItemClicked(SongItem item) {
-                MusicPlayerService.play(SearchActivity.this, item);
-            }
-        });
-
         findViewById(R.id.am_up_arrow).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +66,10 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        setUpMusicControls();
+    }
+
+    private void setUpMusicControls() {
         musicControls = MusicControlsManager.newUIBuilder()
                 .setVisibilityRootView(findViewById(R.id.am_controls_group))
                 .setLabelView(findViewById(R.id.am_controls_label))
@@ -86,12 +83,19 @@ public class SearchActivity extends AppCompatActivity {
         musicControls.setControlsClickListener(new MusicControlsManager.OnControlClickListener() {
             @Override
             public void onResumeClicked() {
-                MusicPlayerService.resume(SearchActivity.this);
+
             }
 
             @Override
             public void onPauseClicked() {
-                MusicPlayerService.pause(SearchActivity.this);
+
+            }
+        });
+
+        searchAdapter.setOnItemClickListener(new OnItemClickListener<SongItem>() {
+            @Override
+            public void onItemClicked(SongItem item) {
+
             }
         });
 
