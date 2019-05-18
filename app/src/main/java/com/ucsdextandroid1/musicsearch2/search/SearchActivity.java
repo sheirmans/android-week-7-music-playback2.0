@@ -59,7 +59,8 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.am_up_arrow).setOnClickListener(new View.OnClickListener() {
+        View arrowView = findViewById(R.id.am_up_arrow);
+        arrowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(MusicDetailsActivity.createIntent(SearchActivity.this));
