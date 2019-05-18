@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".search.SearchActivity">
+
+    <FrameLayout
+        android:id="@+id/am_frame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/am_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        android:focusable="true"
+        android:visibility="visible"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/am_toolbar"
+        app:layout_constraintBottom_toTopOf="@id/am_controls_top"/>
+
+    <View
+        android:id="@+id/am_controls_top"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/light_grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/am_controls"/>
+
+    <View
+        android:id="@+id/am_controls"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@color/grey_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/am_up_arrow"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+        app:layout_constraintTop_toTopOf="@id/am_controls"
+        app:layout_constraintStart_toStartOf="@id/am_controls"
+        app:layout_constraintBottom_toBottomOf="@id/am_controls"/>
+
+    <TextView
+        android:id="@+id/am_controls_label"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/am_controls"
+        app:layout_constraintEnd_toStartOf="@id/am_controls_play_pause"
+        app:layout_constraintStart_toEndOf="@id/am_up_arrow"
+        app:layout_constraintTop_toTopOf="@id/am_controls"
+        tools:text="Taylor Swift • Delicate"/>
+
+    <ImageView
+        android:id="@+id/am_controls_play_pause"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_play_circle_outline"
+        app:layout_constraintBottom_toBottomOf="@id/am_controls"
+        app:layout_constraintEnd_toEndOf="@+id/am_controls"
+        app:layout_constraintTop_toTopOf="@id/am_controls"/>
+
+    <ProgressBar
+        android:id="@+id/am_controls_loading"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/am_controls"
+        app:layout_constraintEnd_toEndOf="@+id/am_controls"
+        app:layout_constraintTop_toTopOf="@id/am_controls"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/am_controls_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="am_controls_top,am_controls,am_up_arrow,am_controls_label,am_controls_play_pause"
+        tools:visibility="visible"/>
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/am_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_search_white_24dp">
+
+        <EditText
+            android:id="@+id/am_toolbar_edit_text"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:hint="@string/search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:textColorHint="@color/light_grey"
+            android:textColor="@android:color/white"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".player.MusicDetailsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/amd_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_keyboard_arrow_down_24dp"
+        app:subtitleTextColor="@android:color/white"
+        app:title="Test"
+        app:titleTextColor="@android:color/white"/>
+
+    <ImageView
+        android:id="@+id/amd_rewind_view"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/amd_playpause_view"
+        app:layout_constraintEnd_toStartOf="@id/amd_playpause_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/amd_playpause_view"
+        app:srcCompat="@drawable/ic_fast_rewind_24dp"/>
+
+    <ImageView
+        android:id="@+id/amd_playpause_view"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/amd_fastforward_view"
+        app:layout_constraintStart_toEndOf="@id/amd_rewind_view"
+        app:layout_constraintTop_toBottomOf="@+id/amd_subtitle"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_play_circle_filled"/>
+
+    <ProgressBar
+        android:id="@+id/amd_loading_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/amd_playpause_view"
+        app:layout_constraintEnd_toEndOf="@id/amd_playpause_view"
+        app:layout_constraintStart_toStartOf="@id/amd_playpause_view"
+        app:layout_constraintTop_toTopOf="@id/amd_playpause_view"
+        app:srcCompat="@drawable/ic_play_circle_filled"/>
+
+    <ImageView
+        android:id="@+id/amd_fastforward_view"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/amd_playpause_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/amd_playpause_view"
+        app:layout_constraintTop_toTopOf="@id/amd_playpause_view"
+        app:srcCompat="@drawable/ic_fast_forward_24dp"/>
+
+    <ImageView
+        android:id="@+id/amd_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/amd_toolbar"
+        app:srcCompat="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/amd_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/amd_image"
+        app:layout_constraintStart_toStartOf="@+id/amd_image"
+        app:layout_constraintTop_toBottomOf="@+id/amd_image"
+        tools:text="Song Title"/>
+
+    <TextView
+        android:id="@+id/amd_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/amd_title"
+        app:layout_constraintStart_toStartOf="@+id/amd_title"
+        app:layout_constraintTop_toBottomOf="@+id/amd_title"
+        tools:text="Artist Name"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
