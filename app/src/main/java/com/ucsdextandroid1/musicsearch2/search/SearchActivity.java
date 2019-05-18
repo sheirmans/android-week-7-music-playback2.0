@@ -33,6 +33,11 @@ public class SearchActivity extends AppCompatActivity {
     private String latestSearchTerm;
     private MusicControlsManager musicControls;
 
+    private MusicPlayer musicPlayer;
+
+    private int currentState;
+    private SongItem currentSong;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +68,7 @@ public class SearchActivity extends AppCompatActivity {
         arrowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(MusicDetailsActivity.createIntent(SearchActivity.this));
+                startActivity(MusicDetailsActivity.createIntent(SearchActivity.this,currentState,currentSong));
             }
         });
 
@@ -71,24 +76,38 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setUpMusicControls() {
-        musicControls = MusicControlsManager.newUIBuilder()
-                .setVisibilityRootView(findViewById(R.id.am_controls_group))
-                .setLabelView(findViewById(R.id.am_controls_label))
-                .setLoadingView(findViewById(R.id.am_controls_loading))
-                .setPlayPauseView(
-                        findViewById(R.id.am_controls_play_pause),
-                        R.drawable.ic_play_circle_outline,
-                        R.drawable.ic_pause_circle_outline
-                ).build();
+
+//        musicPlayer = new MusicPlayer();
+//
+//        musicPlayer.setStateChangedListener(new MusicPlayer.OnStateChangedListener() {
+//           @Override
+//           public void onStateChanged(int state) {
+//                musicControls.updateViewState(state);
+//           }
+//       });
+
+       musicControls = MusicControlsManager.newUIBuilder()
+               .setVisibilityRootView(findViewById(R.id.am_controls_group))
+              .setLabelView(findViewById(R.id.am_controls_label))
+            .setLoadingView(findViewById(R.id.am_controls_loading))
+           .setPlayPauseView(
+                 findViewById(R.id.am_controls_play_pause),
+               R.drawable.ic_play_circle_outline,
+             R.drawable.ic_pause_circle_outline
+           ).build();
 
         musicControls.setControlsClickListener(new MusicControlsManager.OnControlClickListener() {
             @Override
             public void onResumeClicked() {
+//          musicPlayer.resume();
+                MusicPlayerService.resume(SearchActivity.this);
 
             }
 
             @Override
             public void onPauseClicked() {
+ //      musicPlayer.pause();
+                MusicPlayerService.pause(SearchActivity.this);
 
             }
         });
@@ -96,11 +115,14 @@ public class SearchActivity extends AppCompatActivity {
         searchAdapter.setOnItemClickListener(new OnItemClickListener<SongItem>() {
             @Override
             public void onItemClicked(SongItem item) {
+//      musicPlayer.play(item);
+//     musicControls.updateViewMetadata(item);
+                MusicPlayerService.play(SearchActivity.this,item);
 
             }
         });
 
-//        registerBroadcastReceiver();
+        registerBroadcastReceiver();
     }
 
     /**
@@ -131,38 +153,43 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-//    private void registerBroadcastReceiver() {
-//        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(this);
-//        broadcastManager.registerReceiver(controlsBroadcastReceiver,
-//                new IntentFilter(MusicPlayerService.ACTION_STATE_CHANGED));
-//    }
-//
-//    private void unregisterBroadcastReceiver() {
-//        LocalBroadcastManager.getInstance(this).unregisterReceiver(controlsBroadcastReceiver);
-//    }
-//
-//    private BroadcastReceiver controlsBroadcastReceiver = new BroadcastReceiver() {
-//
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            if(intent.getAction() != null && MusicPlayerService.ACTION_STATE_CHANGED.equals(intent.getAction())) {
-//                int state = intent.getIntExtra(MusicPlayerService.EXTRA_PLAYBACK_STATE, MusicPlayer.STATE_STOPPED);
-//                SongItem item = intent.getParcelableExtra(MusicPlayerService.EXTRA_SONG);
-//
-//                if(musicControls != null) {
-//                    musicControls.updateViewState(state);
-//                    musicControls.updateViewMetadata(item);
-//                }
-//            }
-//        }
-//
-//    };
+    private void registerBroadcastReceiver() {
+
+        IntentFilter intentFilter = new IntentFilter(MusicPlayerService.ACTION_STATE_CHANGED);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(controlsBroadcastReceiver, intentFilter);
+    }
+
+
+    private void unregisterBroadcastReceiver() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(controlsBroadcastReceiver);
+    }
+
+    private BroadcastReceiver controlsBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction() != null && MusicPlayerService.ACTION_STATE_CHANGED.equals(intent.getAction())) {
+
+                int state = intent.getIntExtra(MusicPlayerService.EXTRA_PLAYBACK_STATE, MusicPlayer.STATE_STOPPED);
+                SongItem item = intent.getParcelableExtra(MusicPlayerService.EXTRA_SONG);
+
+                if(musicControls != null) {
+                    musicControls.updateViewState(state);
+                    musicControls.updateViewMetadata(item);
+                }
+                currentSong = item;
+                currentState = state;
+            }
+        }
+
+    };
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-//        unregisterBroadcastReceiver();
+        unregisterBroadcastReceiver();
     }
 
 }
