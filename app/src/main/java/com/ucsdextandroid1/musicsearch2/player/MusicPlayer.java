@@ -20,6 +20,8 @@ public class MusicPlayer implements MediaPlayer.OnPreparedListener,
     public static final int STATE_PLAYING = 2;
     public static final int STATE_PAUSED = 3;
 
+    
+
     private int currentState = STATE_STOPPED;
 
     private boolean mediaPlayerPrepared = false;
